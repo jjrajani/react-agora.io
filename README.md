@@ -32,7 +32,7 @@ Now that we have the React CLI we can use it to generate a new React app templat
    - To move into your new react app parent directory.
 3. `npm start`
    - This is a sript built into the react starter template. This will start your application in a new browser window at [http://localhost:3000](http://localhost:3000). You should see the page open automatically and your terminal should have output something like this.
-   - [IMAGE OF THE TERMINAL]
+   - ![react-compile-success](https://raw.githubusercontent.com/jjrajani/react-agora.io/master/imgs/react-compile-success.png)
 4. Open the new react starter template in your favorite code editor.
 
 ### Step 3) App Setup
@@ -136,6 +136,7 @@ Now let's add a form for the user to submit a channel name to join.
   - All classes that extend React's `Component` class are provided with React's state manager. React will keep track of any changes that occur to the state object and will trigger a re-render if a state property changes. React is selective in it's re-render and will cherry pick only parts of the DOM that are effected by the state change. To learn more visit [React State and Lifecycle](https://reactjs.org/docs/state-and-lifecycle.html).
 
 3. Now that we have state, we can add methods to trigger state changes that will fire based on user input. We will first add on onChange handler to attatch to our channel name input.
+
    ```javascript
    //ChannelForm.js
    import React, { Component } from "react";
@@ -179,6 +180,7 @@ Now let's add a form for the user to submit a channel name to join.
 Now that we can keep track of the state of the user's typed channel name, we can finish wiring up our **ChannelForm** with a submitForm method.
 
 - Modify **ChannelForm.js** like so:
+
   ```javascript
   // ChannelForm.js
   import React, { Component } from "react";
@@ -216,6 +218,7 @@ Now that we can keep track of the state of the user's typed channel name, we can
     }
   }
   ```
+
   - First, we added an onSubmit method to our ChannelForm component. At the moment, our onSubmit method logs the channel name to the console, then resets the channel name value to an empty string. We will come back to complete the onSubmit method after we setup our **Call** component.
   - If you save and navigate to your browser everything should appear the same. However, if you open your dev tools, type and submit a channel name, you should see the channel name logged into your console and the channel name form value cleared out.
     [CHANNELFORM WITH SUBMIT WORKING AND CONSOLE LOG OF CHANNEL SUBMITTED]
@@ -223,6 +226,7 @@ Now that we can keep track of the state of the user's typed channel name, we can
 ### Step 7) Call Component Setup
 
 1. Navigate to **Call.js** and add the following:
+
    ```javascript
    // Call.js
    import React, { Component } from "react";
@@ -233,6 +237,7 @@ Now that we can keep track of the state of the user's typed channel name, we can
      }
    }
    ```
+
 2. Navigate to **App.js** and add our new Call component.
 
    ```javascript
@@ -265,6 +270,7 @@ Now that we can keep track of the state of the user's typed channel name, we can
 2. Before we can take full advantage of the agoria sdk we will need an agora appId. To get an appId follow steps 1-4 of the [Agora.io Integrate the SDK tutorial](https://docs.agora.io/en/Voice/web_prepare?platform=Web#create-an-agora-account-and-get-an-app-id)
 
 3. Now that the Agora SDK is installed and we have an appId we can start using Agora SDK in our app. Let's start by importing the Agora SDK into the **Call** component and initialize Agora's localStream.
+
    ```javascript
    // Call.js
    import React, { Component } from "react";
@@ -285,6 +291,7 @@ Now that we can keep track of the state of the user's typed channel name, we can
      }
    }
    ```
+
    - First, we imported the AgoraRTC on line 3.
    - Then, for the sake of simplicity, we used a random number generator to create a user id. We will use this ID when creating our localStream.
    - Finally, we created an object `localStream` on our **Call** component and set it equal to a new instance of an AgoraRTC stream.
@@ -353,6 +360,7 @@ Now that we can keep track of the state of the user's typed channel name, we can
    let client = AgoraRTC.createClient({ mode: "live", codec: "h264" });
    ```
 2. Now, in our `componentDidMount` function, we will call `this.initClient()`. Then we will add the `initClient` method to our Call component.
+
    ```javascript
        ...
        componentDidMount() {
@@ -373,11 +381,13 @@ Now that we can keep track of the state of the user's typed channel name, we can
          };
        ...
    ```
+
    - Save your changes and navigate back to your browser. In the console you should now see output indicating you have successfully initialized the AgoraRTC client.
 
 ### Step 11) Join a Channel
 
 1. With the Agora client initialized, we can now create or join a channel on the client. To do this, we will need to back up a little.
+
    - First, navigate to **App.js**. In **App.js** we are going to add state for a channel name and a method to update that state. We will pass the channel state to our **Call** component and use the update method in our **ChannelForm**.
    - Add state to the **App** component.
      ```javascript
@@ -400,6 +410,7 @@ Now that we can keep track of the state of the user's typed channel name, we can
      };
      ```
    - Pass the selectChannel as a prop to the ChannelForm.
+
    ```javacsript
        /// App.js
        ...
@@ -413,6 +424,7 @@ Now that we can keep track of the state of the user's typed channel name, we can
        }
        ...
    ```
+
    - And finally, we will pass the state of our channel to our **Call** component.
      ```javascript
      // App.js
@@ -426,6 +438,7 @@ Now that we can keep track of the state of the user's typed channel name, we can
        }
      ```
    - You **App.js** file should now look like this
+
      ```javascript
      // App.js
      import React, { Component } from "react";
@@ -456,6 +469,7 @@ Now that we can keep track of the state of the user's typed channel name, we can
 
      export default App;
      ```
+
 2. Now, let's move to our **ChannelForm.js** and use the new `selectChannel` method in our form submit. Update the **ChannelForm** `onSubmit` method as follows:
 
    ```javascript
@@ -471,6 +485,7 @@ Now that we can keep track of the state of the user's typed channel name, we can
    - Note, we first call `this.props.selectChannel` then call `this.setState` to clear the typed channel. If we do the opposite, we would be passing an empty string to `this.props.selectChannel`.
 
    - Next, we want to alert our **Call** component when the selected Channel updates so we can join the new channel. To do this we will use a React lifecycle method `componentDidUpdate`. `componentDidUpdate` get's fired everytime a React component state or prop changes. In this case, the prop 'channel' will be the trigger for our `componentDidUpdate`. You can learn more about React's `componentDidUpdate` lifecycle method [here](https://reactjs.org/docs/react-component.html#componentdidupdate).
+
      ```
      // Call.js
      ...
@@ -503,7 +518,9 @@ Now that we can keep track of the state of the user's typed channel name, we can
        };
        ...
      ```
+
    - The complete **Call.js** file should now look like this
+
      ```javascript
      import React, { Component } from "react";
      import AgoraRTC from "agora-rtc-sdk";
@@ -586,6 +603,7 @@ Now that we can keep track of the state of the user's typed channel name, we can
        }
      }
      ```
+
    - If you save all your changes and navigate back to your browser window you should now be able to join a channel. You'll know you're successfull by the console output. You should see output simmilar to "Join channel <channel_name> success, join with uid <your_uid>".
 
 ### Step 12) Subscribe to Channel Events
@@ -614,6 +632,7 @@ Now that we can keep track of the state of the user's typed channel name, we can
    ```
 
    - Then we will add the new `subscribeToClient` method to our **Call** component.
+
      ```javascript
      // Call.js
      ...
@@ -628,6 +647,7 @@ Now that we can keep track of the state of the user's typed channel name, we can
        };
        ...
      ```
+
      - Note, the callback functions have not yet been created. We will do that now.
 
 2. Let's start with the `stream-added` event. When the `stream-added` event is fired, it is an indication that a new user has added their stream to our channel. We will want to track all users in our stream in our **Call** component's state. Let's add a state holder for remoteStreams and the onStreamAdded method.
@@ -702,6 +722,7 @@ Now that we can keep track of the state of the user's typed channel name, we can
    ```
    - In `onRemoteClientAdded`, we find the remoteStream in the **Call** compoennt's state with a key that matches the newly added streamId and call it's `play` method. In the `play` method we pass a string `"agora_remote " + remoteStream.getId()`. Notice that this corresponds to the id of the remote video div generated when we looped over the remoteStreams in our render method. This is why it was so important for us to subscribe to the remote stream only after we setState in `onStreamAdded`. We cannot call play on a stream id if the corresponding div has not yet been rendered.
 5. At this point, **Call.js** should look like this.
+
    ```javascript
    import React, { Component } from "react";
    import AgoraRTC from "agora-rtc-sdk";
@@ -845,7 +866,9 @@ If you save and navigate back to your browser, you should finally be able to see
 All we have now is to add the ability to leave the channel. Right now, if you close one of the open tabs, the other is left with a black video playing. Let's fix that.
 
 6.  To clean up when a user leaves the channel we need to complete the `stream-removed` and `peer-leave` events. These events will both perform the same function of removing a stream from the `remoteStreams` state object. We will want to listen for both to ensure we cover cases for when the user joins a different channel and when a user just closes the app.
+
     - Add the `onStreamRemoved` method
+
     ```javascript
     // Call.js
     ...
@@ -866,7 +889,9 @@ All we have now is to add the ability to leave the channel. Right now, if you cl
       };
       ...
     ```
+
     - Add the `onPeerLeave` method
+
     ```javascript
     // Call.js
     ...
@@ -887,6 +912,7 @@ All we have now is to add the ability to leave the channel. Right now, if you cl
       };
       ...
     ```
+
          * You'll notice these methods are identical.  For explicitness we will leave both methods but if you would like to refactor and use only one feel free.
 
 - After saving your changes and navigating back to your browser, open two or more tabs. Join the same channel in each tab and see your group video chat working! If you close a tab or join a different channel from any of the tabs you should see a user leave the original video chat.
