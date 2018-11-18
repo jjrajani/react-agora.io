@@ -2,6 +2,8 @@
 
 In this guide we will build a video chat using [React](https://reactjs.org/docs/getting-started.html) and [Agora.io](https://docs.agora.io/en). This guide will assume you have little to no experience using React but understand the basics of webRTC and/or have used the [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads).
 
+[Demo](http://react-agora.surge.sh/)
+
 ### Overview
 
 Let us first layout the basic features of the app we are going to build. Then we will jump straight in.
@@ -43,7 +45,7 @@ create-react-app comes with a bit of boiler plate that we won't need. Let's go a
 2. In the components directory we will create two empty files, **ChannelForm.js** and **Call.js**.
 
 Your app structure should now look like this.
-[IMAGE OF FILE TREE]
+![app-structure](https://raw.githubusercontent.com/jjrajani/react-agora.io/master/imgs/project-structure.png)
 
 ### Step 4) Channel Form Setup
 
@@ -83,7 +85,7 @@ export default App;
 ```
 
     * If you save the changes so far and navigate back to your browser window you should see:
-    [IMAGE OF CHANNEL FORM "THIS WILL BE THE CHANNELFORM"]
+    ![channel form](https://raw.githubusercontent.com/jjrajani/react-agora.io/master/imgs/channel-form.png)
 
 ##### Step 4) Channel Form Recap
 
@@ -113,7 +115,7 @@ Now let's add a form for the user to submit a channel name to join.
 ```
 
     * Save your changes.  In the browser you should now see
-    [CHANNEL FORM WITH INPUT AND BUTTON - Not funcitoning]
+    ![channel form](https://raw.githubusercontent.com/jjrajani/react-agora.io/master/imgs/channel_form_input_button.png)
 
 2. Now, let's add state to our component so we can keep track of what the user types into the Channel Form.
 
@@ -221,7 +223,7 @@ Now that we can keep track of the state of the user's typed channel name, we can
 
   - First, we added an onSubmit method to our ChannelForm component. At the moment, our onSubmit method logs the channel name to the console, then resets the channel name value to an empty string. We will come back to complete the onSubmit method after we setup our **Call** component.
   - If you save and navigate to your browser everything should appear the same. However, if you open your dev tools, type and submit a channel name, you should see the channel name logged into your console and the channel name form value cleared out.
-    [CHANNELFORM WITH SUBMIT WORKING AND CONSOLE LOG OF CHANNEL SUBMITTED]
+    [channel form submit](https://raw.githubusercontent.com/jjrajani/react-agora.io/master/imgs/channel-form-submitting.png)
 
 ### Step 7) Call Component Setup
 
@@ -261,7 +263,7 @@ Now that we can keep track of the state of the user's typed channel name, we can
    ```
 
    - If you save your changes, your browser should now look like this
-     [VIDEO CALL COMPONENT added to the screen]
+     [video call component](https://raw.githubusercontent.com/jjrajani/react-agora.io/master/imgs/video_call_component.png)
 
 ### Step 8) Add Agora.io SDK to the Call component
 
@@ -919,4 +921,4 @@ All we have now is to add the ability to leave the channel. Right now, if you cl
 
 ### Congratualtions!
 
-You have just completed building a Group Video Chat with React and the Agora.io SDK. You can find the full code sample for this demo [here]().
+You have just completed building a Group Video Chat with React and the Agora.io SDK. You can find the full code sample for this demo [here](https://github.com/jjrajani/react-agora.io).
