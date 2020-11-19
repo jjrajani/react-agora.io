@@ -1,8 +1,10 @@
+# This repo is not maintained.
+
 # Build a Video Chat with React and Agora.io
 
 In this guide we will build a video chat using [React](https://reactjs.org/docs/getting-started.html) and [Agora.io](https://docs.agora.io/en). This guide will assume you have little to no experience using React but understand the basics of webRTC and/or have used the [Agora.io SDK](https://docs.agora.io/en/Agora%20Platform/downloads).
 
-[Demo](http://react-agora.surge.sh/)
+
 
 ### Overview
 
